@@ -1,5 +1,6 @@
 import edu.pjatk.inn.coffeemaker.CoffeeService
 import edu.pjatk.inn.coffeemaker.Delivery
+import edu.pjatk.inn.coffeemaker.CaloriesCounter
 import sorcer.service.*
 import static sorcer.co.operator.*
 import static sorcer.eo.operator.*
@@ -19,5 +20,12 @@ Task delivery = task("delivery", sig("deliver", Delivery.class), context(
         val("delivery/paid"),
         val("room", "101")));
 
-job(coffee, delivery,
-        pipe(outPoint(coffee, "coffee/change"), inPoint(delivery, "delivery/paid")));
+Task caloriesCounter = task("caloriesCounter", sig("countCalories", CaloriesCounter.class));
+
+job(
+    coffee, delivery, caloriesCounter,
+    pipe(
+        outPoint(coffee, "coffee/change"),
+        inPoint(delivery, "delivery/paid")
+    )
+);

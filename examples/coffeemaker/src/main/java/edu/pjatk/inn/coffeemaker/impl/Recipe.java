@@ -14,6 +14,12 @@ import java.rmi.RemoteException;
  * @author Sarah and Mike
  */
 public class Recipe implements Serializable {
+
+    private static final int COFFEE_CALORIES = 1;
+    private static final int MILK_CALORIES = 10;
+    private static final int SUGAR_CALORIES = 15;
+    private static final int CHOCOLATE_CALORIES = 30;
+
     private String name;
     private int price;
     private int amtCoffee;
@@ -148,6 +154,16 @@ public class Recipe implements Serializable {
         if (price >= 0) {
             this.price = price;
         }
+    }
+
+    /**
+     * @return number of calories of a beverage made according to this recipe
+     */
+    public int getCaloriesCount() {
+        return amtCoffee * COFFEE_CALORIES
+                + amtMilk * MILK_CALORIES
+                + amtSugar * SUGAR_CALORIES
+                + amtChocolate * CHOCOLATE_CALORIES;
     }
 
     /**
